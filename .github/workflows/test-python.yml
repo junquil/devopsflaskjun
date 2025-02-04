@@ -18,7 +18,7 @@ jobs:
         - name: setup python
           uses: actions/setup-python@v4
           with:
-            python-version: '3.12'
+            python-version: '3.9'
 
         - name: install dependencies
           run: |
@@ -32,13 +32,13 @@ jobs:
         - name: Set up SSH key
           run: |
               mkdir -p ~/.ssh
-              echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-              chmod 600 ~/.ssh/id_rsa
-              ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
+                echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                chmod 600 ~/.ssh/id_rsa
+                ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
 
         - name: Run SSH commands on EC2
           run: |
               ssh -v ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-              echo "Connected to EC2"
-              uname -a
+                echo "Connected to EC2"
+                uname -a
               EOF
